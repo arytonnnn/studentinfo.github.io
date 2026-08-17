@@ -1,0 +1,468 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const StudentProfileApp());
+}
+
+class StudentProfileApp extends StatelessWidget {
+  const StudentProfileApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Student Profile',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: const Color(0xFF0A0A0A),
+      ),
+      home: const StudentProfilePage(),
+    );
+  }
+}
+
+class StudentProfilePage extends StatelessWidget {
+  const StudentProfilePage({super.key});
+
+  static const Color neonRed = Color(0xFFFF1744);
+  static const Color neonRedGlow = Color(0xFFFF5252);
+  static const Color darkBg = Color(0xFF121212);
+  static const Color cardBg = Color(0xFF1A1A1A);
+
+  static const String fullName = 'Kristia Grace Ilagan';
+  static const String nickname = 'Cha';
+  static const String age = '20';
+  static const String birthday = 'October 05, 2005';
+  static const String address = 'Mahogany Village Phase2 San Isidro Cabuyao Laguna ';
+  static const String hobby = 'Playing Valorant, Playing Badminton';
+  static const String motto = '"I came, I saw, I forgot why I walked into the room."';
+  static const String course = 'BS Information Technology';
+  static const String yearLevel = '3rd Year';
+  static const String section = 'IT-3B';
+
+  static const String knowMeMoreMessage =
+      'Hi, I\'m Cha — professional deadline survivor and part-time '
+      'functioning human. Currently running on caffeine, 3 hours of sleep, '
+      'and the sheer will to not cry during code review.\n\n'
+      'My code works and I have no idea why, which honestly describes my '
+      'whole college experience. Somewhere between debugging at 2am and '
+      'pretending I understand my own group project, I\'ve learned that '
+      'panic is just motivation wearing a scarier costume.\n\n'
+      '3rd year, still standing, still vibing. If you see me talking to my '
+      'laptop, no you didn\'t.';
+
+  static const List<Map<String, dynamic>> academicInfo = [
+    {
+      'icon': Icons.book,
+      'label': 'Favorite Subject',
+      'value': 'Vacant "hehe"',
+    },
+    {
+      'icon': Icons.code,
+      'label': 'Programming Language',
+      'value': 'English?',
+    },
+    {
+      'icon': Icons.build,
+      'label': 'Technical Skill',
+      'value': 'Ctrl C + Ctrl V',
+    },
+    {
+      'icon': Icons.flag,
+      'label': 'Career Goal',
+      'value': 'Mobile App Developer',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: darkBg,
+      appBar: AppBar(
+        title: const Text(
+          'Student Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+            color: neonRed,
+            shadows: [
+              Shadow(color: neonRed, blurRadius: 20),
+              Shadow(color: neonRedGlow, blurRadius: 10),
+            ],
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF0A0A0A),
+        elevation: 0,
+        shape: const Border(
+          bottom: BorderSide(color: neonRed, width: 1.5),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildHeaderCard(context),
+            const SizedBox(height: 20),
+            _buildSectionTitle('Personal Information', Icons.person),
+            const SizedBox(height: 8),
+            _buildPersonalInfoCard(),
+            const SizedBox(height: 20),
+            _buildSectionTitle('Academic Information', Icons.school),
+            const SizedBox(height: 8),
+            _buildAcademicInfoCard(),
+            const SizedBox(height: 24),
+            _buildActionButtons(context),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderCard(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: neonRed, width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: neonRed.withOpacity(0.6),
+            blurRadius: 24,
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: neonRed.withOpacity(0.3),
+            blurRadius: 40,
+            spreadRadius: 4,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 16),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: neonRed.withOpacity(0.8),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: const CircleAvatar(
+              radius: 55,
+              backgroundColor: Color(0xFF1A1A1A),
+              child: Icon(
+                Icons.person,
+                size: 60,
+                color: neonRedGlow,
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+          const Text(
+            fullName,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(color: neonRed, blurRadius: 12),
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '"$nickname"',
+            style: const TextStyle(
+              color: neonRedGlow,
+              fontSize: 15,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              motto,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.75),
+                fontSize: 13,
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            spacing: 10,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildChip(course),
+              _buildChip('$yearLevel - $section'),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildKnowMeMoreButton(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKnowMeMoreButton(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () => _showKnowMeMoreDialog(context),
+      icon: const Icon(Icons.info_outline),
+      label: const Text('Know Me More'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        foregroundColor: neonRedGlow,
+        elevation: 6,
+        shadowColor: neonRed,
+        side: const BorderSide(color: neonRed, width: 1.2),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+    );
+  }
+
+  void _showKnowMeMoreDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: cardBg,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: const BorderSide(color: neonRed, width: 1.2),
+          ),
+          title: const Text(
+            'A Little More About Me',
+            style: TextStyle(
+              color: neonRed,
+              fontWeight: FontWeight.bold,
+              shadows: [Shadow(color: neonRed, blurRadius: 10)],
+            ),
+          ),
+          content: const Text(
+            knowMeMoreMessage,
+            style: TextStyle(color: Colors.white70, height: 1.4),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close', style: TextStyle(color: neonRedGlow)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildChip(String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: neonRed, width: 1),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(color: neonRedGlow, fontSize: 12),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, color: neonRed, size: 20),
+        const SizedBox(width: 8),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: neonRedGlow,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPersonalInfoCard() {
+    final List<Map<String, String>> personalDetails = [
+      {'label': 'Age', 'value': age, 'icon': 'cake'},
+      {'label': 'Birthday', 'value': birthday, 'icon': 'event'},
+      {'label': 'Address', 'value': address, 'icon': 'home'},
+      {'label': 'Hobby', 'value': hobby, 'icon': 'sports_basketball'},
+    ];
+
+    final Map<String, IconData> iconMap = {
+      'cake': Icons.cake,
+      'event': Icons.event,
+      'home': Icons.home,
+      'sports_basketball': Icons.sports_basketball,
+    };
+
+    return Container(
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: neonRed.withOpacity(0.5), width: 1),
+        boxShadow: [
+          BoxShadow(color: neonRed.withOpacity(0.2), blurRadius: 16),
+        ],
+      ),
+      child: Column(
+        children: [
+          for (int i = 0; i < personalDetails.length; i++) ...[
+            ListTile(
+              leading: Icon(
+                iconMap[personalDetails[i]['icon']],
+                color: neonRed,
+              ),
+              title: Text(
+                personalDetails[i]['label']!,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                  color: Colors.white54,
+                ),
+              ),
+              subtitle: Text(
+                personalDetails[i]['value']!,
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+              ),
+            ),
+            if (i != personalDetails.length - 1)
+              Divider(height: 1, indent: 16, endIndent: 16, color: neonRed.withOpacity(0.2)),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAcademicInfoCard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: neonRed.withOpacity(0.5), width: 1),
+        boxShadow: [
+          BoxShadow(color: neonRed.withOpacity(0.2), blurRadius: 16),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          for (int i = 0; i < academicInfo.length; i++) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: neonRed.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: neonRed.withOpacity(0.4)),
+                    ),
+                    child: Icon(
+                      academicInfo[i]['icon'] as IconData,
+                      color: neonRedGlow,
+                      size: 22,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          academicInfo[i]['label'] as String,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white54,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          academicInfo[i]['value'] as String,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (i != academicInfo.length - 1)
+              Divider(height: 1, indent: 16, endIndent: 16, color: neonRed.withOpacity(0.2)),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton.icon(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Contact info coming soon!')),
+              );
+            },
+            icon: const Icon(Icons.email),
+            label: const Text('Contact Me'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: neonRed,
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 8,
+              shadowColor: neonRed,
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: TextButton.icon(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Thanks for viewing my profile!')),
+              );
+            },
+            icon: const Icon(Icons.favorite_border, color: neonRedGlow),
+            label: const Text('Say Hi', style: TextStyle(color: neonRedGlow)),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              side: const BorderSide(color: neonRed),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
